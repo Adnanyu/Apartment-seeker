@@ -1,0 +1,75 @@
+<% layout('layouts/boilerplate') %>
+<div class="row">
+    <section class="col-lg-3 col-md-8 col-sm-12 col-12 my-4 p-4  container">
+        <div class="card" >
+            <div class="d-flex justify-content-center my-4">
+                <img src="<%= user.profile_picture.replace('/upload', '/upload/h_200') %>" alt="<%= user.username %>'s profile picture" class="rounded-circle" style="width: 104px; height: 104px;">
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Name: <%= user.username.toUpperCase() %></li>
+                <li class="list-group-item">Email: <%= user.email %></li>
+                <li class="list-group-item">Phone: </li>
+            </ul>
+            <div class="card-footer">
+                Joined: <%= joinedDate %>
+            </div>
+            <form action="/chats" method="POST" id="myform" class="mx-auto my-3 <%= currentUser && currentUser._id.equals(user._id) ? 'd-none' : '' %>" >
+              <input class="d-none" name="receiverId" value="<%= user._id %>">
+              <button class="btn btn-outline-secondary mx-auto">message user</button>
+            </form>
+        </div>
+    </section>  
+    <div class="col-lg-9 col-md-12 col-sm-12 col-12 ">
+        <h1 class="mx-auto"><%= user.username %>'s Posts</h1>
+        <% posts.map(post => { %>
+            <div class="col">
+                <div class="card " style=" height: 100%;">
+                    <div id="carouselExampleIndicators<%= post.title %>" class="carousel slide<%= post.title %>">
+                        <% if (post.images.length > 1) {%>  
+                        <div class="carousel-indicators ">
+                        <% post.images.map((image, ind) => { %>
+                            <button type="button" data-bs-target="#carouselExampleIndicators<%= post.title %>" data-bs-slide-to="<%= ind %>" class="<%= ind  === 0 ? 'active' : '' %>" aria-current="<%= ind  === 0 ? 'true' : '' %>" aria-label="Slide <%= ind + 1 %>"></button>
+                          <% }) %>
+                        </div>
+                        <% } %>
+                        <div class="carousel-inner ">
+                            <% post.images.map((image, ind) => { %>
+                                <div class="carousel-item <%= ind  === 0 ? 'active' : '' %>" >
+                                    <img src="<%= image.url %>" class="d-block w-100 "  alt="<%= image + ind %>" style="width: 100px; height: 250px;">
+                                </div>
+                          <% }) %>
+                        </div>
+                        <% if (post.images.length > 1) {%>  
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators<%= post.title %>" data-bs-slide="prev">
+                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators<%= post.title %>" data-bs-slide="next">
+                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Next</span>
+                        </button>
+                        <% } %>
+                      </div>
+                  <a class="card-body" href="/posts/<%= post._id %>" style="text-decoration: none; ">
+                    <h5 class="card-title"><%= post.title %></h5>
+                    <p class="card-text">
+                        <small class="text-muted"><%= post.address.substring(0,30) %>...</small>
+                    </p>
+                    <p class="text-muted"> Available from <%= post.availability.toString().substring(4,15) %></p>
+                    <p class="card-text">$<%= post.price %> monthly</p>
+                    
+                  </a>
+                </div>
+              </div>
+              
+        <% }) %>
+        </div>
+    </div>
+</div>
+
+<script>
+  
+  
+</script>
+
+

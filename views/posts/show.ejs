@@ -1,0 +1,113 @@
+<% layout('layouts/boilerplate') %>
+
+<script> 
+  const mapToken = '<%- process.env.MAPBOX_TOKEN %>'
+  const post = <%- JSON.stringify(post) %>
+</script>
+
+<div class="row">
+    <div class="col-6 col-sm-12 col-md-12 col-lg-6 col-12">
+      <div id="carouselExample" class="carousel slide">
+        <div class="carousel-inner">
+          <% post.images.map((image, ind) => { %>
+            <div class="carousel-item <%= ind  === 0 ? 'active' : '' %>">
+              <img src="<%= image.url %>" class="d-block w-100" style="width: 650px; height:450px;" alt="">
+            </div>
+            <% })  %>
+            <% if (post.images.length > 1) {%>        
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+        <% } %>
+      </div>
+        <div class="card mb-4">
+            <div class="card-body d-flex justify-content-between">
+              <div>
+                <h5 class="card-title"><%= post.title %></h5>
+                <p class="card-text"><%= post.description %></p>
+              </div>
+              <!-- <div onClick={ () => dispatch(savePost(post._id)) }> {currentUser && currentUser.favorites.includes(post._id) ? <SaveFill className="checked"/> : <Save style={{marginRight: '1em' + '1em'}}/> }</div>             -->
+              <div>
+                <% if(currentUser && currentUser.saved.includes(post._id)){ %>
+                <form id="myform" method="POST" action="/save/<%= post._id %>">
+                  <a onclick="document.getElementById('myform').submit();">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 256 256" width="50px" height="60px" fillRule="nonzero">
+                      <g transform="translate(25.6,25.6) scale(0.8,0.8)">
+                          <g fill="#FCC419" fillRule="nonzero" stroke="none" strokeWidth="none" strokeLinecap="butt" strokeLinejoin="none" strokeMiterlimit="10" strokeDasharray="" strokeDashoffset="0" fontFamily="none" fontWeight="none" fontSize="none" textAnchor="none" style="mix-blend-mode: normal;">
+                              <path transform="scale(8.53333,8.53333)" d="M23,27l-8,-7l-8,7v-22c0,-1.105 0.895,-2 2,-2h12c1.105,0 2,0.895 2,2z" id="strokeMainSVG" stroke="#000000" strokeWidth="3" strokeLinejoin="round"></path>
+                              <g transform="scale(8.53333,8.53333)" fill="#FCC419" stroke="none" strokeWidth="0" strokeLinejoin="miter">
+                                 <path d="M23,27l-8,-7l-8,7v-22c0,-1.105 0.895,-2 2,-2h12c1.105,0 2,0.895 2,2z"></path>
+                             </g>
+                          </g>
+                      </g>
+                  </svg>
+                  </a>
+                </form>
+                <% } else { %>
+                      <form id="myform" method="POST" action="/save/<%= post._id %>">
+                        <a onclick="document.getElementById('myform').submit();">
+                          <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 256 256" width="50px" height="60px" fillRule="nonzero">
+                            <g transform="translate(25.6,25.6) scale(0.8,0.8)">
+                                <g fill="#000000" fillRule="nonzero" stroke="none" strokeWidth="none" strokeLinecap="butt" strokeLinejoin="none" strokeMiterlimit="10" strokeDasharray="" strokeDashoffset="0" fontFamily="none" fontWeight="none" fontSize="none" textAnchor="none" style="mix-blend-mode: normal;">
+                                    <path transform="scale(8.53333,8.53333)" d="M23,27l-8,-7l-8,7v-22c0,-1.105 0.895,-2 2,-2h12c1.105,0 2,0.895 2,2z" id="strokeMainSVG" stroke="#000000" strokeWidth="3" strokeLinejoin="round"></path>
+                                    <g transform="scale(8.53333,8.53333)" fill="#fcfafa" stroke="none" strokeWidth="0" strokeLinejoin="miter">
+                                      <path d="M23,27l-8,-7l-8,7v-22c0,-1.105 0.895,-2 2,-2h12c1.105,0 2,0.895 2,2z"></path>
+                                  </g>
+                                </g>
+                            </g>
+                         </svg>
+                        </a>
+                      </form> 
+                <% } %>
+                <!-- <svg width="60px" height="60px" viewBox="-2.4 -2.4 28.80 28.80" fill="red" xmlns="http://www.w3.org/2000/svg" stroke="#000000" stroke-width="0.00024000000000000003" transform="matrix(1, 0, 0, 1, 0, 0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.576"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M6.75 6L7.5 5.25H16.5L17.25 6V19.3162L12 16.2051L6.75 19.3162V6ZM8.25 6.75V16.6838L12 14.4615L15.75 16.6838V6.75H8.25Z" fill="#000000"></path> </g></svg> -->
+              </div>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item ">Posted By: <a href="/users/<%= post.author._id %>"><%= post.author.username %></a></li>
+              <li class="list-group-item ">City: <%= post.city %></li>
+              <li class="list-group-item ">Address: <%= post.address %></li>
+              <li class="list-group-item ">Floor: <%= post.floor %></li>
+              <li class="list-group-item ">Area: <%= post.area %> m<sup>2</sup></li>
+              <li class="list-group-item ">Available from: <%= post.availability.toString().substring(0,21) %></li>
+              <li class="list-group-item ">Number of Bedrooms: <%= post.number_of_bedrooms %></li>
+              <li class="list-group-item ">Number of Bathrooms: <%= post.number_of_bathrooms %></li>
+              <li class="list-group-item ">Ac: <%= post.amenities.includes('ac') ? 'Yes' : 'No' %></li>
+              <li class="list-group-item ">Gym: <%= post.amenities.includes('gym') ? 'Yes' : 'No' %></li>
+              <li class="list-group-item ">Elevator: <%= post.amenities.includes('elevator') ? 'Yes' : 'No' %></li>
+              <li class="list-group-item ">Parking: <%=post.amenities.includes('parking') ? 'Yes' : 'No' %></li>
+              <li class="list-group-item ">Pool: <%= post.amenities.includes('pool') ? 'Yes' : 'No' %></li>
+              <li class="list-group-item">Rent: $<%= post.price %>/month</li>
+              <li class="list-group-item">Phone: <%= post.contact.phone %></li>
+              <li class="list-group-item">email: <%= post.contact.email %></li>
+            </ul>
+            <div class="card-footer">
+              <small class="text-body-secondary">Posted: <%= createdDate %></small>
+            </div>
+            <div class="card-footer">
+              <small class="text-body-secondary">Last Updated: <%= editedDate %></small>
+            </div>
+            <% if(currentUser && post.author.equals(currentUser._id)) {%>
+            <div class="card-body">
+                <a class="card-link btn btn-warning" href="/posts/<%= post._id.toString() %>/edit">Edit</a>
+                <form class="d-inline" action="/posts/<%= post._id.toString() %>?_method=DELETE" method="POST">
+                    <button class="btn btn-danger">delete</button>
+                </form>
+            </div>
+            <% } %>
+          </div>
+    </div>
+  </div>
+    <div class="col-6 col-sm-12 col-md-12 col-lg-6 col-12">
+      <div id='map' style="height: 500px;"></div>
+    </div>
+</div>
+
+
+
+
+<script src="/javascripts/showPageMap.js"></script>

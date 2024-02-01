@@ -1,0 +1,38 @@
+<nav class="navbar sticky-top navbar-expand-lg navbar-light text-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand text-dark" href="#">Apartment-Seeker</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-link text-dark"  href="/">Home</a>
+          <a class="nav-link text-dark" href="/posts">Posts</a>
+          <!-- <a class="nav-link text-dark" href="/posts/new">Add New Post</a> -->
+        </div>
+        <div class="navbar-nav ms-auto ">
+          <a href="/posts/new" class="nav-link new-post text-dark">+</a>
+          <% if(!currentUser) { %>
+            <a href="/login" class="nav-link text-dark">login</a>
+            <a href="/register" class="nav-link text-dark">register</a>
+          <% } else{ %>
+            <a href="/chats" class="nav-link text-dark"><?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+              <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17 3.33782C15.5291 2.48697 13.8214 2 12 2C6.47715 2 2 6.47715 2 12C2 13.5997 2.37562 15.1116 3.04346 16.4525C3.22094 16.8088 3.28001 17.2161 3.17712 17.6006L2.58151 19.8267C2.32295 20.793 3.20701 21.677 4.17335 21.4185L6.39939 20.8229C6.78393 20.72 7.19121 20.7791 7.54753 20.9565C8.88837 21.6244 10.4003 22 12 22C17.5228 22 22 17.5228 22 12C22 10.1786 21.513 8.47087 20.6622 7" stroke="#000" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M8 12H8.009M11.991 12H12M15.991 12H16" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+            <a href="/saved" class="nav-link new-post text-dark">
+              <svg width="35px" height="35px"  viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#000000">
+                <path d="M15.75 5H8.25C7.55964 5 7 5.58763 7 6.3125V19L12 15.5L17 19V6.3125C17 5.58763 16.4404 5 15.75 5Z" stroke="#000" stroke-linecap="round" stroke-linejoin="round">
+
+                </path>
+              </svg>
+            </a>
+            <a href="/logout" class="nav-link text-dark">logout</a>
+
+          <% } %>
+        </div>
+      </div>
+    </div>
+</nav>

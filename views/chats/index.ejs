@@ -1,0 +1,55 @@
+<% layout('layouts/boilerplate') %>
+
+<script> 
+    const currentUser = <%- JSON.stringify(currentUser) %>
+    
+</script>
+<div class="row container vh-100 p-md-0 p-sm-0 mx-auto px-auto">
+    <div class="border border-grey h-75 chats-container">
+        <% chats.map(chat => { %>
+            <div class="card w-100 h-10 mt-3 mb-2 chat-card" data-chatId="<%= chat._id %>" >
+                <div class="card-body d-flex p-2 gap-1">
+                    <div class="d-flex justify-content-start position-relative">
+                        <img src="<%= chat.members.filter(member => member.username != currentUser.username)[0].profile_picture ? chat.members.filter(member => member.username != currentUser.username)[0].profile_picture.replace('/upload', '/upload/w_100')  : 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png' %>" alt="<%= chat.members.filter(member => member.username != currentUser.username)[0].username %>'s profile picture" class="rounded-circle" style="width: 60px; height: 60px;">
+                        <span class="user-dot" data-userId="<%= chat.members.filter(member => member.username != currentUser.username)[0]._id %>"></span>
+                    </div>
+                    <h5 class="card-title "><%= chat.members.filter(member => member.username != currentUser.username)[0].username %></h5>
+                </div>
+            </div>
+            <% }) %>
+    </div>
+        <div class="border border-grey h-75  messages-box ">
+            <% if (chats.length > 0) { %>
+                <div class="align-self-center justify-item-center my-auto">click on chat %></div>
+                
+                <% } else { %>
+
+                        <div class="align-self-center my-auto">Oops You Don't Have Chats Yet!!!</div>
+
+                    <% } %>
+                    </div>
+                </div>
+                
+                
+<script src="https://cdn.socket.io/4.7.2/socket.io.min.js" integrity="sha384-mZLF4UVrpi/QTWPA7BjNPEnkIfRFn4ZEO3Qt/HFklTJBj/gBOV8G3HcKn4NfQblz" crossorigin="anonymous"></script>
+<script src="/javascripts/messages.js"></script>
+<script>
+    let foundChat = null;
+    let createdChat = null;
+    let chatId
+
+<% if (typeof foundChat != 'undefined') { %>
+    foundChat = <%- JSON.stringify(foundChat) %>;
+    fetchData(foundChat._id);
+    chatId = foundChat._id
+    socket.emit('joinChatRoom', foundChat._id);
+<% } %>
+
+<% if (typeof createdChat != 'undefined') { %>
+    createdChat = <%- JSON.stringify(createdChat) %>;
+    fetchData(createdChat._id);
+    chatId = createdChat._id
+    socket.emit('joinChatRoom', createdChat._id);
+<% } %>
+
+</script>
