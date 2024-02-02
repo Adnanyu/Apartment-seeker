@@ -67,7 +67,7 @@ async function fetchData(chatId) {
     
     console.log('fetched dat with id: ', chatId)
     try {
-        const response = await fetch(`http://localhost:3000/messages/${chatId}`);
+        const response = await fetch(`https://apartment-seeker.onrender.com/messages/${chatId}`);
         
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
