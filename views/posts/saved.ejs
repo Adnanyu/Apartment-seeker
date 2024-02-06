@@ -7,48 +7,7 @@
     <div id="cluster-map" ></div>
   </div>
     <h1>Your Saved Posts</h1>
-    <div class="d-inline-flex gap-1 mb-4">
-      <button class="btn btn-clear border border-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-        <svg width="25px" height="25px" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" stroke-width="3" stroke="#000000" fill="none"><line x1="50.69" y1="32" x2="56.32" y2="32"/><line x1="7.68" y1="32" x2="38.69" y2="32"/><line x1="26.54" y1="15.97" x2="56.32" y2="15.97"/><line x1="7.68" y1="15.97" x2="14.56" y2="15.97"/><line x1="35" y1="48.03" x2="56.32" y2="48.03"/><line x1="7.68" y1="48.03" x2="23" y2="48.03"/><circle cx="20.55" cy="15.66" r="6"/><circle cx="44.69" cy="32" r="6"/><circle cx="29" cy="48.03" r="6"/></svg>
-        Filter
-      </button>
-    </div>
-    <div class="collapse container mt-1 mb-5" id="collapseExample">
-      <div class="row">
-        <div class="col-md-4">
-          <label for="categoryDropdown">Category:</label>
-          <select class="form-control" id="categoryDropdown">
-            <option value="all">All Categories</option>
-            <option value="electronics">Electronics</option>
-            <option value="clothing">Clothing</option>
-            <option value="books">Books</option>
-          </select>
-        </div>
-        <div class="col-md-4">
-          <label for="brandDropdown">Brand:</label>
-          <select class="form-control" id="brandDropdown">
-            <option value="all">All Brands</option>
-            <option value="brand1">Brand 1</option>
-            <option value="brand2">Brand 2</option>
-            <option value="brand3">Brand 3</option>
-          </select>
-        </div>
-        <div class="col-md-4">
-          <label for="priceFilter">Price:</label>
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="From" id="priceFrom">
-            <div class="input-group-prepend">
-              <span class="input-group-text mx-2 ">-</span>
-            </div>
-            <input type="text" class="form-control" placeholder="To" id="priceTo">
-          </div>
-        </div>
-      </div>
-      
-    </div>
-
     <div class="row row-cols-2 row-cols-md-2 row-cols-lg-4 g-4 mb-4">
-       
     <% if(posts.length < 1){ %>
         <div class="mx-auto w-auto">
             <h1>
