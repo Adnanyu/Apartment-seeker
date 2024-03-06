@@ -83,6 +83,8 @@ app.get('/fakeuser', async (res, req) => {
 });
 
 app.get('/', (req, res) => {
+  let ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress 
+  console.log(ip)
   res.render('home');
 });
 
