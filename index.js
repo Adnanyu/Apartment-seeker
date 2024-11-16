@@ -18,6 +18,7 @@ import flash from 'connect-flash';
 import passport from 'passport';
 import LocalStrategy from 'passport-local';
 import dotenv from 'dotenv';
+import { Visitor } from './models/visitors.js';
 dotenv.config();
 
 const atlasUrl = process.env.ATLAS_URI 
@@ -38,6 +39,7 @@ const __dirname = dirname(__filename);
 
 const io = getIo(server);
 
+app.set('trust proxy', true);
 app.set('view engine', 'ejs');
 app.engine('ejs', engine);
 app.set('views', path.join(__dirname, '/views'));
@@ -76,15 +78,30 @@ app.use('/', userRouter);
 app.use('/chats', ChatRouter);
 app.use('/messages', messageRouter);
 
-app.get('/fakeuser', async (res, req) => {
-  const user = new User({ email: 'adnan', username: 'adil' });
-  const newuser = await User.register(user, 'adnan');
-  res.send(newuser);
+// app.get('/fakeuser', async (res, req) => {
+//   const user = new User({ email: 'adnan', username: 'adil' });
+//   const newuser = await User.register(user, 'adnan');
+//   res.send(newuser);
+// });
+
+app.use(async (req, res, next) => {
+  try {
+    const ipAddress = req.ip;
+
+    const newVote = new Visitor({
+      ipAddress: ipAddress, 
+      visitDate: Date.now(), 
+    });
+    await newVote.save();
+
+    console.log(`IP Address: ${ipAddress}`);
+  } catch (err) {
+    console.error(err);
+  }
+  next(); 
 });
 
 app.get('/', (req, res) => {
-  let ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress 
-  console.log(ip)
   res.render('home');
 });
 
